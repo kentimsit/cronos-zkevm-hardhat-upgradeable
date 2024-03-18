@@ -29,6 +29,7 @@ const config: HardhatUserConfig = {
         },
         cronosZkevmSepoliaTestnet: {
             url: "https://rpc-zkevm-t0.cronos.org",
+            gasPrice: 10 ** 10,
             ethNetwork: "sepolia",
             zksync: true,
             verifyURL: "https://zkevm-t0.cronos.org/contract_verification",

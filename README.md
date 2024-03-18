@@ -31,19 +31,37 @@ npx hardhat coverage
 
 To deploy a smart contract to Cronos zkEVM Testnet, select `cronosZkevmSepoliaTestnet` as the `defaultNetwork` in `hardhat.config.ts`.
 
+In order to increase the chances of successful deployment, the gasPrice set as network option in the `hardhat.config.ts` should be 10 x higher than the network's gas price on Testnet. This is because Ethereum Sepolia's gas price is volatile. To determine the network's gas price, run `npx ts-node ./deploy/gasprice.ts`.
+
 The frequently used shell commands are:
 
 ```bash
 # Deploy on Cronos zkEVM Testnet
 npx hardhat run ./deploy/deploy.ts
+```
 
-$ Implementation contract was deployed to 0xdeBcbC81fAffe50D72D584439a57aee24a1aaB0b
-$ UUPS proxy was deployed to 0xe39d23C9622dF24E9E88b1090D05A3C2824e7874
-$ BoxUups deployed to: 0xe39d23C9622dF24E9E88b1090D05A3C2824e7874
+Example of outputs
 
-# Verify on Cronos zkEVM Testnet
+```
+Deploying BoxUups...
+Implementation contract was deployed to 0xdeBcbC81fAffe50D72D584439a57aee24a1aaB0b
+UUPS proxy was deployed to 0x7fC491168CCB3D1942b21b0d48D2b2bEAA818C8C
+BoxUups deployed to: 0x7fC491168CCB3D1942b21b0d48D2b2bEAA818C8C
+Encoded proxy arguments for proxy verification:
+0xfe4b84df0000000000000000000000000000000000000000000000000000000000000000
+Box value is:  0n
+```
+
+Contract verification on blockchain explorer:
+
+```bash
+# Verify implementation contract on Cronos zkEVM Testnet
+
 npx hardhat verify --network cronosZkevmSepoliaTestnet 0xdeBcbC81fAffe50D72D584439a57aee24a1aaB0b
 
-npx hardhat verify --network cronosZkevmSepoliaTestnet 0xe39d23C9622dF24E9E88b1090D05A3C2824e7874
+# Verify proxy contract on Cronos zkEVM Testnet
+# This takes 2 arguments after the proxy's address: the address of the implementation contract
+# And the encoded arguments printed by the deploy.ts script
 
+npx hardhat verify --network cronosZkevmSepoliaTestnet 0x7fC491168CCB3D1942b21b0d48D2b2bEAA818C8C 0xdeBcbC81fAffe50D72D584439a57aee24a1aaB0b 0xfe4b84df0000000000000000000000000000000000000000000000000000000000000000
 ```
