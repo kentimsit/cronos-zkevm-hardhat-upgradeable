@@ -33,7 +33,7 @@ To deploy a smart contract to Cronos zkEVM Testnet, select `cronosZkevmSepoliaTe
 
 In order to increase the chances of successful deployment, the gasPrice set as network option in the `hardhat.config.ts` should be 10 x higher than the network's gas price on Testnet. This is because Ethereum Sepolia's gas price is volatile. To determine the network's gas price, run `npx ts-node ./deploy/gasprice.ts`.
 
-The frequently used shell commands are:
+To deploy the contracts (implementation contract and proxy):
 
 ```bash
 # Deploy on Cronos zkEVM Testnet
